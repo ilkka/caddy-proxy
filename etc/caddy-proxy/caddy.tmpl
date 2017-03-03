@@ -9,20 +9,16 @@
     {{ if eq $addrLen 1 }}
       {{ with $address := index $value.Addresses 0 }}
       proxy / {{ $address.IP }}:{{ $address.Port }} {
-        header_upstream Host {host}
-        header_upstream X-Real-IP {remote}
-        header_upstream X-Forwarded-For {remote}
-        header_upstream X-Forwarded-Proto {scheme}
+        websocket
+        transparent
       }
       {{ end }}
     {{ else if $value.Env.VIRTUAL_PORT }}
       {{ range $i, $address := $value.Addresses }}
         {{ if eq $address.Port $value.Env.VIRTUAL_PORT }}
         proxy / {{ $address.IP }}:{{ $address.Port }} {
-          header_upstream Host {host}
-          header_upstream X-Real-IP {remote}
-          header_upstream X-Forwarded-For {remote}
-          header_upstream X-Forwarded-Proto {scheme}
+          websocket
+          transparent
         }
         {{ end }}
       {{ end }}
@@ -30,10 +26,8 @@
       {{ range $i, $address := $value.Addresses }}
         {{ if eq $address.Port "80" }}
         proxy / {{ $address.IP }}:{{ $address.Port }} {
-          header_upstream Host {host}
-          header_upstream X-Real-IP {remote}
-          header_upstream X-Forwarded-For {remote}
-          header_upstream X-Forwarded-Proto {scheme}
+          websocket
+          transparent
         }
         {{ end }}
       {{ end }}
