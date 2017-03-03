@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM nimmis/alpine:3.4
 MAINTAINER ilkka@ilkka.io
 
 RUN apk add --no-cache curl
