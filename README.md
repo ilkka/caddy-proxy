@@ -1,5 +1,5 @@
 # caddy-proxy
-Automated [caddy](https://github.com/mholt/caddy) proxy for Docker containers using docker-gen.
+Automated [caddy](https://github.com/mholt/caddy) proxy for Docker containers using docker-gen, based on [BlackGlory's version](https://github.com/BlackGlory/caddy-proxy).
 
 ### Usage
 
@@ -7,6 +7,8 @@ Start any containers you want proxied with an env var `VIRTUAL_HOST=subdomain.yo
 ```sh
 $ docker run -e VIRTUAL_HOST=foo.bar.com  ...
 ```
+
+Traffic is proxied from HTTP and HTTPS ports to exported ports on the containers. If the containers export more than one port, the proxied port should be set by setting `VIRTUAL_PORT` in the environment of the container.
 
 If you want the container protected by HTTP Basic Authentication add a `BASIC_AUTH` env var with the path to protect (i.e. `/`), username, and password:
 ```sh
